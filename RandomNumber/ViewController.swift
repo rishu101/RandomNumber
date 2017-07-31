@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var lineChartView: LineChartView!
     
+    @IBOutlet weak var randomNumberLabel: UILabel!
     var date : NSDate?
     var dateFormatter : NSDateFormatter?
     var timer = NSTimer()
@@ -32,6 +33,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureChart()
+        self.randomNumberLabel.textAlignment = .Center
+        randomNumberLabel.font = UIFont.boldSystemFontOfSize(14)
         socket.on("connect") {data, ack in
             print("socket connected")
         }
@@ -46,6 +49,7 @@ class ViewController: UIViewController {
             self.randomNumber = data[0] as! Int
             let time = NSDate()
             if self.randomNumber < 10 {
+                self.randomNumberLabel.text = "Current Number [\(self.randomNumber)]"
                 print("rand :", self.randomNumber, "\t\t\ttime :", time)
                 self.saveData(self.randomNumber, time: time)
                 self.previousNumber = self.randomNumber
