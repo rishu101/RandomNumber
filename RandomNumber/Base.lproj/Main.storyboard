@@ -25,7 +25,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="lineChartView" destination="8Wn-gx-S2y" id="RES-LO-utH"/>
+                        <outlet property="lineChartView" destination="8Wn-gx-S2y" id="VAh-NP-wUf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
