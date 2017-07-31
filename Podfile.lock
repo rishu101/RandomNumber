@@ -1,0 +1,30 @@
+PODS:
+  - Charts (2.2.3):
+    - Charts/Core (= 2.2.3)
+  - Charts/Core (2.2.3)
+  - Socket.IO-Client-Swift (7.0.3)
+  - SwiftCharts (0.4)
+
+DEPENDENCIES:
+  - Charts (= 2.2.3)
+  - Socket.IO-Client-Swift (from `https://github.com/socketio/socket.io-client-swift.git`, branch `swift2.3`)
+  - SwiftCharts (= 0.4)
+
+EXTERNAL SOURCES:
+  Socket.IO-Client-Swift:
+    :branch: swift2.3
+    :git: https://github.com/socketio/socket.io-client-swift.git
+
+CHECKOUT OPTIONS:
+  Socket.IO-Client-Swift:
+    :commit: fdb00d63ffaab83864b06248b08551ac2780213a
+    :git: https://github.com/socketio/socket.io-client-swift.git
+
+SPEC CHECKSUMS:
+  Charts: f54267bb3f0f0e74520c6f248517cf5074dfd6fc
+  Socket.IO-Client-Swift: a4d6474309fa82b52736888abe53a75ba33d09a1
+  SwiftCharts: 84b43d9d70b791459ff5f50ae5a6704326de309d
+
+PODFILE CHECKSUM: dfdbeb238a591779f44a38296f278ad092d18be9
+
+COCOAPODS: 1.0.1
