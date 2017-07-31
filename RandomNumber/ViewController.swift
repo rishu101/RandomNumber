@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     let socket = SocketIOClient(socketURL: NSURL(string: "http://ios-test.us-east-1.elasticbeanstalk.com/")!, config: [.Log(true), .Nsp("/random")])
     let notification = UILocalNotification()
     var previousNumber = -1
-    var randomNumber = 8
+    var randomNumber = 0
     var k=0
     
     var xAxisArray : [Int] = []
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                 self.k += 4
                 self.configureChart()
                 
-                NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "setData", userInfo: nil, repeats: true)
+                NSTimer.scheduledTimerWithTimeInterval(time.timeIntervalSinceNow + 0.2, target: self, selector: "setData", userInfo: nil, repeats: true)
                 self.lineChartView.leftAxis.labelCount = 10
             }
         }
@@ -96,6 +96,14 @@ class ViewController: UIViewController {
         lineChartView.zoom(1.0, scaleY: 1.0, x: 0.0, y: 0.0)
     }
     
+    func getColor(isColorChangeRequired: Bool) -> UIColor {
+        return isColorChangeRequired ? UIColor.redColor() : UIColor.blueColor().colorWithAlphaComponent(0.5)
+    }
+    
+    func isColorChangeRequired() -> Bool {
+        return randomNumber > 7 ? true : false
+    }
+    
     func setData() {
         var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
         for var i = 0; i < xAxisArray.count; i++ {
@@ -104,10 +112,10 @@ class ViewController: UIViewController {
         }
         
         let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "")
-        
+        let colorChnageRequired = isColorChangeRequired()
         set1.axisDependency = .Left
         set1.setColor(UIColor.blueColor().colorWithAlphaComponent(0.5))
-        set1.setCircleColor(UIColor.blueColor())
+        set1.setCircleColor(getColor(colorChnageRequired))
         set1.lineWidth = 2.0
         set1.circleRadius = 6.0
         set1.fillAlpha = 65 / 255.0
