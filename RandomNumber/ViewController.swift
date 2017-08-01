@@ -106,16 +106,25 @@ class ViewController: UIViewController {
     
     func setData() {
         var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
+        var yVals2 : [ChartDataEntry] = [ChartDataEntry]()
         for var i = 0; i < xAxisArray.count; i++ {
             let val = self.yAxisArray[i]
-            yVals1.append(ChartDataEntry(value: Double(val), xIndex: i))
+            if val > 7 {
+                yVals2.append(ChartDataEntry(value: Double(val), xIndex: i))
+            } else {
+                yVals1.append(ChartDataEntry(value: Double(val), xIndex: i))
+            }
         }
         
-        let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "")
+        let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "<=7")
+        let set2: LineChartDataSet = LineChartDataSet(yVals: yVals2, label: ">7")
         let colorChnageRequired = isColorChangeRequired()
         set1.axisDependency = .Left
         set1.setColor(UIColor.blueColor().colorWithAlphaComponent(0.5))
-        set1.setCircleColor(getColor(colorChnageRequired))
+        set2.axisDependency = .Left
+        set2.setColor(UIColor.blueColor().colorWithAlphaComponent(0.5))
+        set1.setCircleColor(getColor(false))
+        set2.setCircleColor(getColor(true))
         set1.lineWidth = 2.0
         set1.circleRadius = 6.0
         set1.fillAlpha = 65 / 255.0
@@ -123,6 +132,7 @@ class ViewController: UIViewController {
         set1.highlightColor = UIColor.whiteColor()
         set1.drawCircleHoleEnabled = true
         set1.drawFilledEnabled = true
+        set1.drawCubicEnabled = true
         
         var dataSets : [LineChartDataSet] = [LineChartDataSet]()
         dataSets.append(set1)
