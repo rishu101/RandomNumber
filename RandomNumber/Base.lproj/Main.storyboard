@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,27 +18,99 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Wn-gx-S2y" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="28" width="360" height="336"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSl-A6-ZCs">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSl-A6-ZCs">
                                 <rect key="frame" x="20" y="400" width="360" height="27"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="20" y="502" width="360" height="27"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tl-pW-Sjj">
+                                <rect key="frame" x="101" y="372" width="97" height="15"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="283" y="441" width="97" height="15"/>
+                                </variation>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Wn-gx-S2y" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="120" y="132" width="360" height="336"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="58" y="167" width="284" height="266"/>
+                                </variation>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szQ-el-7Ah">
+                                <rect key="frame" x="0.0" y="117" width="51" height="22"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="167" width="51" height="22"/>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Wn-gx-S2y" secondAttribute="trailing" constant="38" id="0sN-Ka-IlB"/>
+                            <constraint firstItem="8Wn-gx-S2y" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="147" id="4By-Hr-nER"/>
+                            <constraint firstItem="szQ-el-7Ah" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="4iY-A9-kav"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2tl-pW-Sjj" secondAttribute="trailing" id="4wx-uN-DMf"/>
+                            <constraint firstItem="lSl-A6-ZCs" firstAttribute="top" secondItem="8Wn-gx-S2y" secondAttribute="bottom" constant="69" id="9sq-D7-Jl4"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="lSl-A6-ZCs" secondAttribute="leading" id="D10-qM-1lq"/>
+                            <constraint firstItem="2tl-pW-Sjj" firstAttribute="top" secondItem="8Wn-gx-S2y" secondAttribute="bottom" constant="8" id="WHd-EH-5YF"/>
+                            <constraint firstItem="szQ-el-7Ah" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="147" id="WOd-RQ-SRU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lSl-A6-ZCs" secondAttribute="trailing" id="bF9-02-sDM"/>
+                            <constraint firstItem="8Wn-gx-S2y" firstAttribute="leading" secondItem="szQ-el-7Ah" secondAttribute="trailing" constant="7" id="v62-1Y-dkH"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lSl-A6-ZCs" secondAttribute="bottom" constant="271" id="xe6-6A-jlu"/>
+                            <constraint firstItem="8Wn-gx-S2y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="38" id="zfd-gG-eZ1"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4iY-A9-kav"/>
+                                <exclude reference="WOd-RQ-SRU"/>
+                                <exclude reference="0sN-Ka-IlB"/>
+                                <exclude reference="4By-Hr-nER"/>
+                                <exclude reference="v62-1Y-dkH"/>
+                                <exclude reference="zfd-gG-eZ1"/>
+                                <exclude reference="9sq-D7-Jl4"/>
+                                <exclude reference="D10-qM-1lq"/>
+                                <exclude reference="bF9-02-sDM"/>
+                                <exclude reference="4wx-uN-DMf"/>
+                                <exclude reference="WHd-EH-5YF"/>
+                                <exclude reference="xe6-6A-jlu"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="4iY-A9-kav"/>
+                                <include reference="WOd-RQ-SRU"/>
+                                <include reference="0sN-Ka-IlB"/>
+                                <include reference="4By-Hr-nER"/>
+                                <include reference="v62-1Y-dkH"/>
+                                <include reference="zfd-gG-eZ1"/>
+                                <include reference="9sq-D7-Jl4"/>
+                                <include reference="D10-qM-1lq"/>
+                                <include reference="bF9-02-sDM"/>
+                                <include reference="4wx-uN-DMf"/>
+                                <include reference="WHd-EH-5YF"/>
+                                <include reference="xe6-6A-jlu"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="lineChartView" destination="8Wn-gx-S2y" id="VAh-NP-wUf"/>
                         <outlet property="randomNumberLabel" destination="lSl-A6-ZCs" id="ngI-3d-Of1"/>
+                        <outlet property="xAxisLabel" destination="2tl-pW-Sjj" id="vya-b6-oYW"/>
+                        <outlet property="yAxisLabel" destination="szQ-el-7Ah" id="lp5-br-2YI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="415" y="264"/>
+            <point key="canvasLocation" x="414" y="264"/>
         </scene>
     </scenes>
 </document>

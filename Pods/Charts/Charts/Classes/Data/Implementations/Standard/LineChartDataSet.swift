@@ -96,6 +96,14 @@ public class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
         circleColors.append(color)
     }
     
+    public func setCircleColorAtIndex(var index: Int, color: NSUIColor) {
+        let size = circleColors.count
+        index = index % size
+        if (index <= size) {
+            circleColors[index] = color
+        }
+    }
+    
     /// Resets the circle-colors array and creates a new one
     public func resetCircleColors(index: Int)
     {

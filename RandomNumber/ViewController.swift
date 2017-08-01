@@ -13,6 +13,8 @@ import Charts
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var xAxisLabel: UILabel!
+    @IBOutlet weak var yAxisLabel: UILabel!
     @IBOutlet weak var lineChartView: LineChartView!
     
     @IBOutlet weak var randomNumberLabel: UILabel!
@@ -25,10 +27,11 @@ class ViewController: UIViewController {
     let notification = UILocalNotification()
     var previousNumber = -1
     var randomNumber = 0
-    var k=0
+    var circleColorSet = [NSUIColor]()
+    var xInterval=0, currentXIndex=0
     
-    var xAxisArray : [Int] = []
-    var yAxisArray : [Int] = []
+    var xAxisArray : [String] = []
+    var yAxisArray : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +52,13 @@ class ViewController: UIViewController {
             self.randomNumber = data[0] as! Int
             let time = NSDate()
             if self.randomNumber < 10 {
+                self.xAxisLabel.text = "time (in seconds)"
+                self.yAxisLabel.text = "Numbers"
                 self.randomNumberLabel.text = "Current Number [\(self.randomNumber)]"
                 print("rand :", self.randomNumber, "\t\t\ttime :", time)
                 self.saveData(self.randomNumber, time: time)
                 self.previousNumber = self.randomNumber
-                self.yAxisArray.append(self.randomNumber)
+                self.yAxisArray.append(String(self.randomNumber))
                 
                 if self.previousNumber == self.randomNumber {
                     self.sendLocalNotification(self.randomNumber, time: time)
@@ -66,15 +71,14 @@ class ViewController: UIViewController {
                 self.dateFormatter!.dateFormat = "HH:mm:ss"
                 self.date = NSDate()
                 
-                //Insert random values into chart
                 stringArray.addObject(self.date!)
                 numberArray.addObject(self.randomNumber)
                 
-                self.xAxisArray.append(self.k)
-                self.k += 4
+                self.xAxisArray.append(String(self.xInterval))
+                self.xInterval += 4
                 self.configureChart()
                 
-                NSTimer.scheduledTimerWithTimeInterval(time.timeIntervalSinceNow + 0.2, target: self, selector: "setData", userInfo: nil, repeats: true)
+                NSTimer.scheduledTimerWithTimeInterval(time.timeIntervalSinceNow + 0.2, target: self, selector: "setData", userInfo: nil, repeats: false)
                 self.lineChartView.leftAxis.labelCount = 10
             }
         }
@@ -83,17 +87,25 @@ class ViewController: UIViewController {
     
     func configureChart() {
         lineChartView.descriptionText = "Random Number < 10"
-        lineChartView.noDataTextDescription = "Add Data"
+        lineChartView.noDataText = "Loding Data. Please wait"
         lineChartView.drawGridBackgroundEnabled = false
+        lineChartView.drawBordersEnabled = true
         lineChartView.dragEnabled = true
         lineChartView.rightAxis.enabled = false
         lineChartView.doubleTapToZoomEnabled = false
         lineChartView.legend.enabled = false
-        
+        lineChartView.leftAxis.labelCount = 10
+        self.lineChartView.leftAxis.forceLabelsEnabled = true
         let chartXAxis = lineChartView.xAxis as ChartXAxis
         chartXAxis.labelPosition = .Bottom
-        chartXAxis.setLabelsToSkip(2)
+        chartXAxis.setLabelsToSkip(0)
+        chartXAxis.spaceBetweenLabels = 4
+        chartXAxis.avoidFirstLastClippingEnabled = true
         lineChartView.zoom(1.0, scaleY: 1.0, x: 0.0, y: 0.0)
+        
+        self.lineChartView.notifyDataSetChanged()
+        self.lineChartView.setVisibleXRange(minXRange: CGFloat(0), maxXRange: CGFloat(10))
+        self.lineChartView.moveViewToX(CGFloat(xInterval))
     }
     
     func getColor(isColorChangeRequired: Bool) -> UIColor {
@@ -106,33 +118,14 @@ class ViewController: UIViewController {
     
     func setData() {
         var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
-        var yVals2 : [ChartDataEntry] = [ChartDataEntry]()
         for var i = 0; i < xAxisArray.count; i++ {
-            let val = self.yAxisArray[i]
-            if val > 7 {
-                yVals2.append(ChartDataEntry(value: Double(val), xIndex: i))
-            } else {
-                yVals1.append(ChartDataEntry(value: Double(val), xIndex: i))
-            }
+            let val = Int(self.yAxisArray[i])
+            yVals1.append(ChartDataEntry(value: Double(val!), xIndex: i))
         }
         
-        let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "<=7")
-        let set2: LineChartDataSet = LineChartDataSet(yVals: yVals2, label: ">7")
+        let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "numbers")
         let colorChnageRequired = isColorChangeRequired()
-        set1.axisDependency = .Left
-        set1.setColor(UIColor.blueColor().colorWithAlphaComponent(0.5))
-        set2.axisDependency = .Left
-        set2.setColor(UIColor.blueColor().colorWithAlphaComponent(0.5))
-        set1.setCircleColor(getColor(false))
-        set2.setCircleColor(getColor(true))
-        set1.lineWidth = 2.0
-        set1.circleRadius = 6.0
-        set1.fillAlpha = 65 / 255.0
-        set1.fillColor = UIColor.blueColor()
-        set1.highlightColor = UIColor.whiteColor()
-        set1.drawCircleHoleEnabled = true
-        set1.drawFilledEnabled = true
-        set1.drawCubicEnabled = true
+        configureDataSet(colorChnageRequired, dataSet: set1, index: self.currentXIndex)
         
         var dataSets : [LineChartDataSet] = [LineChartDataSet]()
         dataSets.append(set1)
@@ -141,20 +134,23 @@ class ViewController: UIViewController {
         self.lineChartView.data = data
         
         lineChartView.data?.setValueTextColor(UIColor.clearColor())
-        self.lineChartView.notifyDataSetChanged()
-        self.lineChartView.moveViewToX(CGFloat(k))
     }
     
-    var i = 0,j=0
-    func updateCounter(randomNumber: Int) {
-        self.lineChartView.data?.addEntry(ChartDataEntry(value: Double(yAxisArray[j]), xIndex: i), dataSetIndex: 0)
-        self.lineChartView.data?.addXValue(String(i))
-        self.lineChartView.leftAxis.labelCount = 10
-        self.lineChartView.setVisibleXRange(minXRange: CGFloat(-10), maxXRange: CGFloat(200))
-        self.lineChartView.notifyDataSetChanged()
-        self.lineChartView.moveViewToX(CGFloat(j))
-        i = i + 4
-        j = j+1
+    
+    
+    func configureDataSet(isColorChangeRequired: Bool, dataSet: LineChartDataSet, index: Int) {
+        dataSet.axisDependency = .Left
+        dataSet.setColor(UIColor.blackColor().colorWithAlphaComponent(0.8))
+        circleColorSet.append(getColor(isColorChangeRequired))
+        dataSet.circleColors = circleColorSet
+        dataSet.lineWidth = 2.0
+        dataSet.circleRadius = 6.0
+        dataSet.fillAlpha = 65 / 255.0
+        dataSet.fillColor = UIColor.blueColor()
+        dataSet.highlightColor = UIColor.whiteColor()
+        dataSet.drawFilledEnabled = true
+        dataSet.drawCubicEnabled = true
+        self.currentXIndex++
     }
     
     override func didReceiveMemoryWarning() {
