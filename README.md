@@ -7,6 +7,5 @@ I'm trying to acheive 3 tasks in this project
 3. Showing a live spline chart which updates periodically after 4 seconds with the new number.
 
 # Installation steps
-1. clone the repository 
-2. pod install 
+1. clone the repository
 2. open RandomNumber.xcworkspace
