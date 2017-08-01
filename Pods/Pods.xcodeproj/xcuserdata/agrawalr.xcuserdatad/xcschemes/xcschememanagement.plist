@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Charts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-RandomNumber.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Socket.IO-Client-Swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftCharts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>0509113F3AA77F89C2C941243B679773</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4083F37A45EB93E44D3DA9DE5774A367</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8144915D96D179D5E951C6D89F5B8CCF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4644D37DE0886252BF4E052C85F08B3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
