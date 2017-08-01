@@ -77,7 +77,6 @@ class ViewController: UIViewController {
                 self.xAxisArray.append(String(self.xInterval))
                 self.xInterval += 4
                 self.configureChart()
-                
                 NSTimer.scheduledTimerWithTimeInterval(time.timeIntervalSinceNow + 0.2, target: self, selector: "setData", userInfo: nil, repeats: false)
                 self.lineChartView.leftAxis.labelCount = 10
             }
@@ -86,8 +85,10 @@ class ViewController: UIViewController {
     }
     
     func configureChart() {
-        lineChartView.descriptionText = "Random Number < 10"
+        lineChartView.descriptionText = "Random Numbers < 10"
         lineChartView.noDataText = "Loding Data. Please wait"
+        lineChartView.infoTextColor = UIColor.redColor().colorWithAlphaComponent(0.8)
+        lineChartView.infoFont = UIFont.boldSystemFontOfSize(15)
         lineChartView.drawGridBackgroundEnabled = false
         lineChartView.drawBordersEnabled = true
         lineChartView.dragEnabled = true
@@ -105,11 +106,11 @@ class ViewController: UIViewController {
         
         self.lineChartView.notifyDataSetChanged()
         self.lineChartView.setVisibleXRange(minXRange: CGFloat(0), maxXRange: CGFloat(10))
-        self.lineChartView.moveViewToX(CGFloat(xInterval))
+        self.lineChartView.moveViewToX(CGFloat(xInterval+4))
     }
     
     func getColor(isColorChangeRequired: Bool) -> UIColor {
-        return isColorChangeRequired ? UIColor.redColor() : UIColor.blueColor().colorWithAlphaComponent(0.5)
+        return isColorChangeRequired ? UIColor.redColor() : UIColor.blueColor()
     }
     
     func isColorChangeRequired() -> Bool {
@@ -175,6 +176,24 @@ class ViewController: UIViewController {
         }
     }
     
+    func getNumberOfRows() -> Int {
+        let totalRows = 0
+        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
+            return -1
+        }
+        let fetchRequest = NSFetchRequest()
+        fetchRequest.resultType = .CountResultType
+        do {
+            let result = try appDelegate.managedObjectContext.executeFetchRequest(fetchRequest)
+            print("result is : ",result)
+        } catch {
+            let fetchError = error as NSError
+            print("fetch error: ", fetchError)
+        }
+        
+        return totalRows
+    }
+    
     func fetchData() {
         guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else {
             return
@@ -182,6 +201,7 @@ class ViewController: UIViewController {
         let fetchRequest = NSFetchRequest()
         let entityDescription = NSEntityDescription.entityForName("RandomNumber", inManagedObjectContext: appDelegate.managedObjectContext)
         fetchRequest.entity = entityDescription
+        fetchRequest.resultType = .CountResultType
         do {
             let result = try appDelegate.managedObjectContext.executeFetchRequest(fetchRequest)
             print("result is : ",result)
